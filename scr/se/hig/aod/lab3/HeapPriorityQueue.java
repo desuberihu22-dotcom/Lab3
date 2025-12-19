@@ -46,22 +46,26 @@ public class HeapPriorityQueue<T extends Comparable<? super T>> implements Prior
 	}
 
 	private int parent(int currentIndex) {
-		// TODO
-		return 0;
+		return (currentIndex - 1) / 2;
 	}
 
 	private int leftChild(int currentIndex) {
-		// TODO
-		return 0;
+		return 2 * currentIndex + 1;
 	}
 
 	private int rightChild(int currentIndex) {
-		// TODO
-		return 0;
+		return 2 * currentIndex + 2;
 	}
 
 	private void reHeapUp(int currentIndex) {
-		// TODO Recursive implementation
+		if (currentIndex <= 0) return;
+		int parent = parent(currentIndex);
+		if (heap[currentIndex].compareTo(heap[parent]) > 0) {
+			T tmp = heap[currentIndex];
+			heap[currentIndex] = heap[parent];
+			heap[parent] = tmp;
+			reHeapUp(parent);
+		}
 	}
 
 	private void reHeapDown(int currentIndex) {
@@ -74,8 +78,8 @@ public class HeapPriorityQueue<T extends Comparable<? super T>> implements Prior
 			throw new PriorityQueueFullException("Heap is full!");
 		}
 		size++;
-		// TODO Code that inserts the new element at the last position in the array
-		// TODO reHeapUp for new node
+		heap[size - 1] = newElement;
+		reHeapUp(size - 1);
 	}
 
 	@Override
@@ -85,7 +89,6 @@ public class HeapPriorityQueue<T extends Comparable<? super T>> implements Prior
 		} else {
 			T dequeuedElement = heap[0];// the root element of the heap
 
-			// TODO Code that moves the last element in the heap to the root of the heap
 			size--;
 			// TODO reHeapDown for the new root of the heap
 
