@@ -21,7 +21,7 @@ public class HeapPriorityQueue<T extends Comparable<? super T>> implements Prior
 	@SuppressWarnings("unchecked")
 	@Override
 	public void clear() {
-		heap = (T[]) (new Comparable[maxSize]); // Create empty array of size maxSize
+		heap = (T[]) (new Comparable[maxSize]); 
 		size = 0;
 	}
 
@@ -58,7 +58,8 @@ public class HeapPriorityQueue<T extends Comparable<? super T>> implements Prior
 	}
 
 	private void reHeapUp(int currentIndex) {
-		if (currentIndex <= 0) return;
+		if (currentIndex <= 0)
+			return;
 		int parent = parent(currentIndex);
 		if (heap[currentIndex].compareTo(heap[parent]) > 0) {
 			T tmp = heap[currentIndex];
@@ -69,7 +70,27 @@ public class HeapPriorityQueue<T extends Comparable<? super T>> implements Prior
 	}
 
 	private void reHeapDown(int currentIndex) {
-		// TODO Recursive implementation
+		int left = leftChild(currentIndex);
+		int right = rightChild(currentIndex);
+
+		if (left >= size) {
+			return; 
+		}
+
+		int maxChild = left;
+
+		if (right < size && heap[right].compareTo(heap[left]) > 0) {
+			maxChild = right;
+		}
+
+		if (heap[currentIndex].compareTo(heap[maxChild]) < 0) {
+			T temp = heap[currentIndex];
+			heap[currentIndex] = heap[maxChild];
+			heap[maxChild] = temp;
+
+			reHeapDown(maxChild);
+		}
+
 	}
 
 	@Override
@@ -85,13 +106,14 @@ public class HeapPriorityQueue<T extends Comparable<? super T>> implements Prior
 	@Override
 	public T dequeue() {
 		if (isEmpty()) {
-			throw new PriorityQueueEmptyException("Cannot dequeue empty Queue!");
+			throw new PriorityQueueEmptyException("Cannot dequeue empty Queue");
 		} else {
-			T dequeuedElement = heap[0];// the root element of the heap
-
+			T dequeuedElement = heap[0];
+			T lastElement = heap[size - 1];
+			heap[0] = lastElement;
+			heap[size - 1] = null;
 			size--;
-			// TODO reHeapDown for the new root of the heap
-
+			reHeapDown(0);
 			return dequeuedElement;
 		}
 	}
