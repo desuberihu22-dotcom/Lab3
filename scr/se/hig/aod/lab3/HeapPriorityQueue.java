@@ -1,12 +1,13 @@
 package se.hig.aod.lab3;
 
 /**
- * A static heap implementation of a priority queue for elements of type T.
- * 
+ * En statisk heap-implementation av en prioritetskö för element av typen T.
+ *
  * @author Desbele
- * 
- * @param <T> Data type of elements stored in the queue.
+ *
+ * @param <T> Datatypen för elementen som lagras i kön.
  */
+
 public class HeapPriorityQueue<T extends Comparable<? super T>> implements PriorityQueue<T> {
 
 	private T[] heap;
@@ -31,11 +32,12 @@ public class HeapPriorityQueue<T extends Comparable<? super T>> implements Prior
 	}
 
 	/**
-	 * Method that is specific for a static implementation of the heap, checks if
-	 * the underlying array is full.
-	 * 
-	 * @return true if the underlying array is full
+	 * Metod som är specifik för en statisk heap-implementation och kontrollerar
+	 * om den underliggande arrayen är full.
+	 *
+	 * @return true om den underliggande arrayen är full
 	 */
+
 	public boolean isFull() {
 		return size == maxSize;
 	}
